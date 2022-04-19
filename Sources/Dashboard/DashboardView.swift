@@ -12,36 +12,43 @@ struct DashboardView: View {
 
   var body: some View {
     NavigationView {
-      List(viewModel.photos) { photo in
-        AsyncImage(url: photo.url) { image in
-          image
-            .resizable()
-            .scaledToFill()
-        } placeholder: {
-          GeometryReader { geometry in
-            ProgressView()
-              .frame(
-                width: geometry.size.width,
-                height: geometry.size.height,
-                alignment: .center
-              )
+      VStack {
+        viewModel.warningText
+          .map(Text.init)
+
+        List(viewModel.photos) { photo in
+          AsyncImage(url: photo.url) { image in
+            image
+              .resizable()
+              .scaledToFill()
+          } placeholder: {
+            GeometryReader { geometry in
+              ProgressView()
+                .frame(
+                  width: geometry.size.width,
+                  height: geometry.size.height,
+                  alignment: .center
+                )
+            }
           }
+          .frame(height: 240)
+          .listSectionSeparator(.hidden)
+          .listRowSeparator(.hidden)
+          .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
         }
-        .frame(height: 240)
-        .listSectionSeparator(.hidden)
-        .listRowSeparator(.hidden)
-        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
       }
       .toolbar {
         ToolbarItem(placement: .navigationBarTrailing) {
-          Button {
-            viewModel.isActivityInProgress
-              ? viewModel.stopActivity()
-              : viewModel.startActivity()
-          } label: {
-            viewModel.isActivityInProgress
-              ? Text("Stop")
-              : Text("Start")
+          if viewModel.canStartActivity {
+            Button {
+              viewModel.isActivityInProgress
+                ? viewModel.stopActivity()
+                : viewModel.startActivity()
+            } label: {
+              viewModel.isActivityInProgress
+                ? Text("Stop")
+                : Text("Start")
+            }
           }
         }
       }
@@ -51,6 +58,7 @@ struct DashboardView: View {
       .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
     }
     .navigationViewStyle(.stack)
+    .onAppear(perform: viewModel.requestPermissions)
   }
 }
 
@@ -59,6 +67,7 @@ struct DashboardView_Previews: PreviewProvider {
     DashboardView(
       viewModel: .mock(
         title: "450m",
+        warningText: "Placeholder warning",
         photos: [
           .init(
             id: UUID().uuidString,
@@ -77,6 +86,7 @@ struct DashboardView_Previews: PreviewProvider {
             url: .init(string: "https://cdn.wallpapersafari.com/69/4/j0JeYp.jpg")!
           )
         ],
+        canStartActivity: true,
         isActivityInProgress: true
       )
     )

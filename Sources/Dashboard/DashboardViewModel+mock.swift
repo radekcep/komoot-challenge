@@ -11,7 +11,9 @@ import Foundation
 extension DashboardViewModel {
   static func mock(
     title: String?,
+    warningText: String?,
     photos: [Photo],
+    canStartActivity: Bool,
     isActivityInProgress: Bool
   ) -> DashboardViewModel {
     let viewModel = DashboardViewModel(
@@ -20,7 +22,9 @@ extension DashboardViewModel {
       routingClient: .stub
     )
     viewModel.title = title
+    viewModel.warningText = warningText
     viewModel.photos = photos
+    viewModel.canStartActivity = canStartActivity
     viewModel.isActivityInProgress = isActivityInProgress
 
     return viewModel

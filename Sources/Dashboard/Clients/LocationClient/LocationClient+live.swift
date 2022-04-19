@@ -26,6 +26,8 @@ extension LocationClient {
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
     locationManager.delegate = locationManagerDelegate
 
+    locationManager.requestAlwaysAuthorization()
+
     return .init(
       authorizationStatus: Deferred { Just(AuthorizationStatus(from: locationManager.authorizationStatus)) }
         .merge(with: authorizationStatusSubject)
