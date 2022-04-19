@@ -90,6 +90,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BFDEE311280E9B0C00E070E5 /* Build configuration list for PBXNativeTarget "KomootChallenge" */;
 			buildPhases = (
+				BFADCBB9280EA05F00A1409B /* SwiftLint */,
 				BFDEE2E4280E9B0C00E070E5 /* Sources */,
 				BFDEE2E5280E9B0C00E070E5 /* Frameworks */,
 				BFDEE2E6280E9B0C00E070E5 /* Resources */,
@@ -176,6 +177,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BFADCBB9280EA05F00A1409B /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Include Apple Silicon brew directory in the PATH\nexport PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BFDEE2E4280E9B0C00E070E5 /* Sources */ = {
