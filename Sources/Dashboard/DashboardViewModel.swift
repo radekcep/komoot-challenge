@@ -8,14 +8,16 @@
 import Foundation
 
 class DashboardViewModel: ObservableObject {
-  @Published var title: String?
-  @Published var photos: [Photo]
-  @Published var isActivityInProgress: Bool
+  private let locationClient: LocationClient
 
-  init() {
-    title = nil
-    photos = []
-    isActivityInProgress = false
+  @Published var title: String?
+  @Published var photos: [Photo] = []
+  @Published var isActivityInProgress: Bool = false
+
+  init(
+    locationClient: LocationClient
+  ) {
+    self.locationClient = locationClient
   }
 
   func startActivity() {}

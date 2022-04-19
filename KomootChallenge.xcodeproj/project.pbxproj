@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF6E30F8280EFDCB003617F0 /* LocationClient+stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6E30F7280EFDCB003617F0 /* LocationClient+stub.swift */; };
+		BF771F81280EEB1200D4916E /* LocationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF771F80280EEB1200D4916E /* LocationClient.swift */; };
+		BF771F83280EEBE200D4916E /* LocationClient+live.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF771F82280EEBE200D4916E /* LocationClient+live.swift */; };
 		BFADCBBC280EA0F300A1409B /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFADCBBB280EA0F300A1409B /* DashboardViewModel.swift */; };
 		BFADCBBE280EA1D100A1409B /* DashboardViewModel+live.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFADCBBD280EA1D100A1409B /* DashboardViewModel+live.swift */; };
-		BFADCBC0280EA21D00A1409B /* DashboardViewModel+stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFADCBBF280EA21D00A1409B /* DashboardViewModel+stub.swift */; };
+		BFADCBC0280EA21D00A1409B /* DashboardViewModel+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFADCBBF280EA21D00A1409B /* DashboardViewModel+mock.swift */; };
 		BFADCBC2280EA38C00A1409B /* DashboardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFADCBC1280EA38C00A1409B /* DashboardViewModelTests.swift */; };
 		BFADCBC6280EA93800A1409B /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFADCBC5280EA93800A1409B /* Photo.swift */; };
 		BFDEE309280E9B0C00E070E5 /* KomootChallengeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDEE2E1280E9B0B00E070E5 /* KomootChallengeApp.swift */; };
@@ -28,9 +31,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BF6E30F7280EFDCB003617F0 /* LocationClient+stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationClient+stub.swift"; sourceTree = "<group>"; };
+		BF771F80280EEB1200D4916E /* LocationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationClient.swift; sourceTree = "<group>"; };
+		BF771F82280EEBE200D4916E /* LocationClient+live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationClient+live.swift"; sourceTree = "<group>"; };
+		BF771F87280EF99700D4916E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BFADCBBB280EA0F300A1409B /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		BFADCBBD280EA1D100A1409B /* DashboardViewModel+live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DashboardViewModel+live.swift"; sourceTree = "<group>"; };
-		BFADCBBF280EA21D00A1409B /* DashboardViewModel+stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DashboardViewModel+stub.swift"; sourceTree = "<group>"; };
+		BFADCBBF280EA21D00A1409B /* DashboardViewModel+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DashboardViewModel+mock.swift"; sourceTree = "<group>"; };
 		BFADCBC1280EA38C00A1409B /* DashboardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModelTests.swift; sourceTree = "<group>"; };
 		BFADCBC5280EA93800A1409B /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		BFDEE2E1280E9B0B00E070E5 /* KomootChallengeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KomootChallengeApp.swift; sourceTree = "<group>"; };
@@ -58,14 +65,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BF771F7E280EEAD200D4916E /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				BF771F7F280EEADA00D4916E /* LocationClient */,
+			);
+			path = Clients;
+			sourceTree = "<group>";
+		};
+		BF771F7F280EEADA00D4916E /* LocationClient */ = {
+			isa = PBXGroup;
+			children = (
+				BF771F80280EEB1200D4916E /* LocationClient.swift */,
+				BF771F82280EEBE200D4916E /* LocationClient+live.swift */,
+				BF6E30F7280EFDCB003617F0 /* LocationClient+stub.swift */,
+			);
+			path = LocationClient;
+			sourceTree = "<group>";
+		};
+		BF771F84280EF85000D4916E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BF771F87280EF99700D4916E /* Info.plist */,
+				BFDEE2E3280E9B0C00E070E5 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		BFADCBBA280EA0DD00A1409B /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				BF771F7E280EEAD200D4916E /* Clients */,
 				BFADCBC4280EA92600A1409B /* Entities */,
 				BFDEE2E2280E9B0B00E070E5 /* DashboardView.swift */,
 				BFADCBBB280EA0F300A1409B /* DashboardViewModel.swift */,
 				BFADCBBD280EA1D100A1409B /* DashboardViewModel+live.swift */,
-				BFADCBBF280EA21D00A1409B /* DashboardViewModel+stub.swift */,
+				BFADCBBF280EA21D00A1409B /* DashboardViewModel+mock.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -100,7 +135,7 @@
 			children = (
 				BFDEE2E1280E9B0B00E070E5 /* KomootChallengeApp.swift */,
 				BFADCBBA280EA0DD00A1409B /* Dashboard */,
-				BFDEE2E3280E9B0C00E070E5 /* Assets.xcassets */,
+				BF771F84280EF85000D4916E /* Resources */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -244,11 +279,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFADCBC6280EA93800A1409B /* Photo.swift in Sources */,
-				BFADCBC0280EA21D00A1409B /* DashboardViewModel+stub.swift in Sources */,
+				BFADCBC0280EA21D00A1409B /* DashboardViewModel+mock.swift in Sources */,
+				BF771F81280EEB1200D4916E /* LocationClient.swift in Sources */,
 				BFADCBBC280EA0F300A1409B /* DashboardViewModel.swift in Sources */,
 				BFDEE30B280E9B0C00E070E5 /* DashboardView.swift in Sources */,
 				BFDEE309280E9B0C00E070E5 /* KomootChallengeApp.swift in Sources */,
 				BFADCBBE280EA1D100A1409B /* DashboardViewModel+live.swift in Sources */,
+				BF6E30F8280EFDCB003617F0 /* LocationClient+stub.swift in Sources */,
+				BF771F83280EEBE200D4916E /* LocationClient+live.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,7 +427,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QHXZM6SCHK;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Sources/Resources/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -419,7 +459,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QHXZM6SCHK;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Sources/Resources/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -9,6 +9,8 @@ import Foundation
 
 extension DashboardViewModel {
   static var live: DashboardViewModel {
-    .init()
+    .init(
+      locationClient: .live
+    )
   }
 }

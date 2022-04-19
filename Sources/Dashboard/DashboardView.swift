@@ -50,13 +50,14 @@ struct DashboardView: View {
       .listStyle(.plain)
       .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
     }
+    .navigationViewStyle(.stack)
   }
 }
 
 struct DashboardView_Previews: PreviewProvider {
   static var previews: some View {
     DashboardView(
-      viewModel: .stub(
+      viewModel: .mock(
         title: "450m",
         photos: [
           .init(
