@@ -10,6 +10,7 @@ import Foundation
 class DashboardViewModel: ObservableObject {
   private let locationClient: LocationClient
   private let photosClient: PhotosClient
+  private let routingClient: RoutingClient
 
   @Published var title: String?
   @Published var photos: [Photo] = []
@@ -17,10 +18,12 @@ class DashboardViewModel: ObservableObject {
 
   init(
     locationClient: LocationClient,
-    photosClient: PhotosClient
+    photosClient: PhotosClient,
+    routingClient: RoutingClient
   ) {
     self.locationClient = locationClient
     self.photosClient = photosClient
+    self.routingClient = routingClient
   }
 
   func startActivity() {}

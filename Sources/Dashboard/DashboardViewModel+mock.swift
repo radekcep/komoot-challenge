@@ -16,7 +16,8 @@ extension DashboardViewModel {
   ) -> DashboardViewModel {
     let viewModel = DashboardViewModel(
       locationClient: .stub,
-      photosClient: .stub
+      photosClient: .stub,
+      routingClient: .stub
     )
     viewModel.title = title
     viewModel.photos = photos

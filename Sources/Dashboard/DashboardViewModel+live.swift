@@ -11,7 +11,8 @@ extension DashboardViewModel {
   static var live: DashboardViewModel {
     .init(
       locationClient: .live,
-      photosClient: .live
+      photosClient: .live,
+      routingClient: .live
     )
   }
 }
