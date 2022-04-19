@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BFADCBBC280EA0F300A1409B /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFADCBBB280EA0F300A1409B /* DashboardViewModel.swift */; };
+		BFADCBBE280EA1D100A1409B /* DashboardViewModel+live.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFADCBBD280EA1D100A1409B /* DashboardViewModel+live.swift */; };
+		BFADCBC0280EA21D00A1409B /* DashboardViewModel+stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFADCBBF280EA21D00A1409B /* DashboardViewModel+stub.swift */; };
+		BFADCBC2280EA38C00A1409B /* DashboardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFADCBC1280EA38C00A1409B /* DashboardViewModelTests.swift */; };
+		BFADCBC6280EA93800A1409B /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFADCBC5280EA93800A1409B /* Photo.swift */; };
 		BFDEE309280E9B0C00E070E5 /* KomootChallengeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDEE2E1280E9B0B00E070E5 /* KomootChallengeApp.swift */; };
-		BFDEE30B280E9B0C00E070E5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDEE2E2280E9B0B00E070E5 /* ContentView.swift */; };
+		BFDEE30B280E9B0C00E070E5 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDEE2E2280E9B0B00E070E5 /* DashboardView.swift */; };
 		BFDEE30D280E9B0C00E070E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFDEE2E3280E9B0C00E070E5 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -23,10 +28,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BFADCBBB280EA0F300A1409B /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		BFADCBBD280EA1D100A1409B /* DashboardViewModel+live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DashboardViewModel+live.swift"; sourceTree = "<group>"; };
+		BFADCBBF280EA21D00A1409B /* DashboardViewModel+stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DashboardViewModel+stub.swift"; sourceTree = "<group>"; };
+		BFADCBC1280EA38C00A1409B /* DashboardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModelTests.swift; sourceTree = "<group>"; };
+		BFADCBC5280EA93800A1409B /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		BFDEE2E1280E9B0B00E070E5 /* KomootChallengeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KomootChallengeApp.swift; sourceTree = "<group>"; };
-		BFDEE2E2280E9B0B00E070E5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BFDEE2E2280E9B0B00E070E5 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		BFDEE2E3280E9B0C00E070E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BFDEE2E8280E9B0C00E070E5 /* Komoot Challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Komoot Challenge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BFDEE2E8280E9B0C00E070E5 /* KomootChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KomootChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFDEE2F5280E9B0C00E070E5 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -48,6 +58,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BFADCBBA280EA0DD00A1409B /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				BFADCBC4280EA92600A1409B /* Entities */,
+				BFDEE2E2280E9B0B00E070E5 /* DashboardView.swift */,
+				BFADCBBB280EA0F300A1409B /* DashboardViewModel.swift */,
+				BFADCBBD280EA1D100A1409B /* DashboardViewModel+live.swift */,
+				BFADCBBF280EA21D00A1409B /* DashboardViewModel+stub.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		BFADCBC3280EA39B00A1409B /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				BFADCBC1280EA38C00A1409B /* DashboardViewModelTests.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		BFADCBC4280EA92600A1409B /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				BFADCBC5280EA93800A1409B /* Photo.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 		BFDEE2DB280E9B0B00E070E5 = {
 			isa = PBXGroup;
 			children = (
@@ -61,7 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				BFDEE2E1280E9B0B00E070E5 /* KomootChallengeApp.swift */,
-				BFDEE2E2280E9B0B00E070E5 /* ContentView.swift */,
+				BFADCBBA280EA0DD00A1409B /* Dashboard */,
 				BFDEE2E3280E9B0C00E070E5 /* Assets.xcassets */,
 			);
 			path = Sources;
@@ -70,7 +108,7 @@
 		BFDEE2E9280E9B0C00E070E5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BFDEE2E8280E9B0C00E070E5 /* Komoot Challenge.app */,
+				BFDEE2E8280E9B0C00E070E5 /* KomootChallenge.app */,
 				BFDEE2F5280E9B0C00E070E5 /* Tests.xctest */,
 			);
 			name = Products;
@@ -79,6 +117,7 @@
 		BFDEE2F8280E9B0C00E070E5 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				BFADCBC3280EA39B00A1409B /* Dashboard */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -101,7 +140,7 @@
 			);
 			name = KomootChallenge;
 			productName = "Komoot Challenge (iOS)";
-			productReference = BFDEE2E8280E9B0C00E070E5 /* Komoot Challenge.app */;
+			productReference = BFDEE2E8280E9B0C00E070E5 /* KomootChallenge.app */;
 			productType = "com.apple.product-type.application";
 		};
 		BFDEE2F4280E9B0C00E070E5 /* Tests */ = {
@@ -137,11 +176,11 @@
 					};
 					BFDEE2F4280E9B0C00E070E5 = {
 						CreatedOnToolsVersion = 13.3;
-						TestTargetID = BFDEE2E7280E9B0C00E070E5;
+						LastSwiftMigration = 1330;
 					};
 				};
 			};
-			buildConfigurationList = BFDEE2DF280E9B0B00E070E5 /* Build configuration list for PBXProject "Komoot Challenge" */;
+			buildConfigurationList = BFDEE2DF280E9B0B00E070E5 /* Build configuration list for PBXProject "KomootChallenge" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -204,8 +243,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BFDEE30B280E9B0C00E070E5 /* ContentView.swift in Sources */,
+				BFADCBC6280EA93800A1409B /* Photo.swift in Sources */,
+				BFADCBC0280EA21D00A1409B /* DashboardViewModel+stub.swift in Sources */,
+				BFADCBBC280EA0F300A1409B /* DashboardViewModel.swift in Sources */,
+				BFDEE30B280E9B0C00E070E5 /* DashboardView.swift in Sources */,
 				BFDEE309280E9B0C00E070E5 /* KomootChallengeApp.swift in Sources */,
+				BFADCBBE280EA1D100A1409B /* DashboardViewModel+live.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFADCBC2280EA38C00A1409B /* DashboardViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,7 +402,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "radekcep.Komoot-Challenge";
-				PRODUCT_NAME = "Komoot Challenge";
+				PRODUCT_NAME = KomootChallenge;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -388,7 +432,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "radekcep.Komoot-Challenge";
-				PRODUCT_NAME = "Komoot Challenge";
+				PRODUCT_NAME = KomootChallenge;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -401,19 +445,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QHXZM6SCHK;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "radekcep.Tests-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Komoot Challenge (iOS)";
 			};
 			name = Debug;
 		};
@@ -421,19 +472,25 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QHXZM6SCHK;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "radekcep.Tests-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Komoot Challenge (iOS)";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -441,7 +498,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BFDEE2DF280E9B0B00E070E5 /* Build configuration list for PBXProject "Komoot Challenge" */ = {
+		BFDEE2DF280E9B0B00E070E5 /* Build configuration list for PBXProject "KomootChallenge" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BFDEE30F280E9B0C00E070E5 /* Debug */,

@@ -9,9 +9,9 @@ import SwiftUI
 
 @main
 struct KomootChallenge: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+  var body: some Scene {
+    WindowGroup {
+      DashboardView(viewModel: .live)
     }
+  }
 }
