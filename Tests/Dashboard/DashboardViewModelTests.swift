@@ -108,6 +108,23 @@ final class DashboardViewModelTests: XCTestCase {
 
     waitForExpectations(timeout: 0.1)
   }
+
+  func test_startActivity_and_stopActivity_should_toggle_isActivityInProgress() {
+    let sut = DashboardViewModel(
+      locationClient: .stub,
+      photosClient: .stub,
+      routingClient: .stub
+    )
+
+    sut.startActivity()
+    XCTAssertTrue(sut.isActivityInProgress)
+
+    sut.stopActivity()
+    XCTAssertFalse(sut.isActivityInProgress)
+
+    sut.startActivity()
+    XCTAssertTrue(sut.isActivityInProgress)
+  }
 }
 
 // MARK: - SUT should ask for location access

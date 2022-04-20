@@ -115,10 +115,12 @@ class DashboardViewModel: ObservableObject {
   }
 
   func startActivity() {
+    isActivityInProgress = true
     locationClient.startUpdatingLocation()
   }
 
   func stopActivity() {
+    isActivityInProgress = false
     locationClient.stopUpdatingLocation()
   }
 }
