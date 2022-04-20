@@ -59,6 +59,7 @@ struct DashboardView: View {
     }
     .navigationViewStyle(.stack)
     .onAppear(perform: viewModel.requestPermissions)
+    .onAppear(perform: viewModel.listenToLocationChanges)
   }
 }
 

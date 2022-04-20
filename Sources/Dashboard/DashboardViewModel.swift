@@ -9,6 +9,8 @@ import Combine
 import Foundation
 
 class DashboardViewModel: ObservableObject {
+  private let distanceToPhotoTreshold: Double
+  private let uuid: () -> UUID
   private let locationClient: LocationClient
   private let photosClient: PhotosClient
   private let routingClient: RoutingClient
@@ -19,13 +21,15 @@ class DashboardViewModel: ObservableObject {
   @Published var canStartActivity: Bool = false
   @Published var isActivityInProgress: Bool = false
 
-  private var cancellables: Set<AnyCancellable> = []
-
   init(
+    uuid: @escaping () -> UUID = UUID.init,
+    distanceToPhotoTreshold: Double = 100,
     locationClient: LocationClient,
     photosClient: PhotosClient,
     routingClient: RoutingClient
   ) {
+    self.uuid = uuid
+    self.distanceToPhotoTreshold = distanceToPhotoTreshold
     self.locationClient = locationClient
     self.photosClient = photosClient
     self.routingClient = routingClient
@@ -59,6 +63,55 @@ class DashboardViewModel: ObservableObject {
         }
       }
       .assign(to: &$warningText)
+  }
+
+  func listenToLocationChanges() {
+    let recordedLocations = locationClient.locations
+      .scan([Location]()) { locations, location in
+        var locations = locations
+        locations.append(location)
+
+        return locations
+      }
+      .map { [routingClient] recordedLocations in
+        (
+          locations: recordedLocations,
+          distance: routingClient.routeDistance(recordedLocations)
+        )
+      }
+      .share()
+
+    recordedLocations
+      .scan(
+        (lastPhotoDistance: 0.0, lastPhotoLocation: Location?.none)
+      ) { [distanceToPhotoTreshold] scan, recordedLocations in
+        let isChangeOverPhotoTreshold = (recordedLocations.distance - scan.lastPhotoDistance) >= distanceToPhotoTreshold
+
+        return isChangeOverPhotoTreshold
+          ? (lastPhotoDistance: recordedLocations.distance, recordedLocations.locations.last)
+          : scan
+      }
+      .removeDuplicates { $0.lastPhotoDistance == $1.lastPhotoDistance }
+      .compactMap(\.lastPhotoLocation)
+      .flatMap { [photosClient] lastPhotoLocation in
+        photosClient.photoURLs(lastPhotoLocation)
+          .replaceError(with: [])
+      }
+      .compactMap { [uuid] photoURLs -> Photo? in
+        photoURLs
+          .first
+          .map { Photo(id: uuid().uuidString, url: $0) }
+      }
+      .scan([Photo]()) { photos, photo in
+        [photo] + photos
+      }
+      .assign(to: &$photos)
+
+    recordedLocations
+      .map(\.distance)
+      .map(Int.init)
+      .map { "\($0)m" }
+      .assign(to: &$title)
   }
 
   func startActivity() {

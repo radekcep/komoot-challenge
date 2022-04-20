@@ -12,7 +12,101 @@ import XCTest
 
 final class DashboardViewModelTests: XCTestCase {
   func test_sut_should_ask_for_image_every_100_meters() {
-    XCTFail("Not implemented")
+    let updatingLocationExpectation = expectation(description: "SUT should start updating location.")
+    let photoURLsExpectation = expectation(description: "SUT should request photos 2 times.")
+    photoURLsExpectation.expectedFulfillmentCount = 2
+    let routeDistanceExpectation = expectation(description: "SUT should ask for distance 3 times.")
+    routeDistanceExpectation.expectedFulfillmentCount = 3
+
+    let locationsSubject = PassthroughSubject<Location, Never>()
+
+    let locationClient = LocationClient(
+      authorizationStatus: Empty().eraseToAnyPublisher(),
+      locations: locationsSubject.eraseToAnyPublisher(),
+      requestAuthorization: { XCTFail("Should not be called.") },
+      startUpdatingLocation: { updatingLocationExpectation.fulfill() },
+      stopUpdatingLocation: { XCTFail("Should not be called.") }
+    )
+
+    let photosClient = PhotosClient { _ in
+      photoURLsExpectation.fulfill()
+
+      return Just([URL(string: "https://example.com")!])
+        .setFailureType(to: PhotosClient.Error.self)
+        .eraseToAnyPublisher()
+    }
+
+    var distancesToReturn = [50.0, 100, 250]
+    let routingClient = RoutingClient { _ in
+      routeDistanceExpectation.fulfill()
+
+      let distanceToReturn = distancesToReturn.first!
+      distancesToReturn = Array(distancesToReturn.dropFirst())
+
+      return distanceToReturn
+    }
+
+    let sut = DashboardViewModel(
+      locationClient: locationClient,
+      photosClient: photosClient,
+      routingClient: routingClient
+    )
+
+    sut.listenToLocationChanges()
+    sut.startActivity()
+
+    locationsSubject.send(.init(latitude: 0, longitude: 0))
+    locationsSubject.send(.init(latitude: 0, longitude: 0))
+    locationsSubject.send(.init(latitude: 0, longitude: 0))
+
+    XCTAssertEqual(sut.photos.count, 2)
+    waitForExpectations(timeout: 0.1)
+  }
+
+  func test_sut_should_update_title_with_every_distance_update() {
+    let updatingLocationExpectation = expectation(description: "SUT should start updating location.")
+    let routeDistanceExpectation = expectation(description: "SUT should ask for distance 3 times.")
+    routeDistanceExpectation.expectedFulfillmentCount = 3
+
+    let locationsSubject = PassthroughSubject<Location, Never>()
+
+    let locationClient = LocationClient(
+      authorizationStatus: Empty().eraseToAnyPublisher(),
+      locations: locationsSubject.eraseToAnyPublisher(),
+      requestAuthorization: { XCTFail("Should not be called.") },
+      startUpdatingLocation: { updatingLocationExpectation.fulfill() },
+      stopUpdatingLocation: { XCTFail("Should not be called.") }
+    )
+
+    var distancesToReturn = [50.0, 100, 250]
+    let routingClient = RoutingClient { _ in
+      routeDistanceExpectation.fulfill()
+
+      let distanceToReturn = distancesToReturn.first!
+      distancesToReturn = Array(distancesToReturn.dropFirst())
+
+      return distanceToReturn
+    }
+
+    let sut = DashboardViewModel(
+      locationClient: locationClient,
+      photosClient: .stub,
+      routingClient: routingClient
+    )
+
+    sut.listenToLocationChanges()
+    sut.startActivity()
+
+    locationsSubject.send(.init(latitude: 0, longitude: 0))
+    XCTAssertEqual(sut.title, "50m")
+
+    locationsSubject.send(.init(latitude: 0, longitude: 0))
+    XCTAssertEqual(sut.title, "100m")
+
+    locationsSubject.send(.init(latitude: 0, longitude: 0))
+    XCTAssertEqual(sut.title, "250m")
+
+    waitForExpectations(timeout: 0.1)
   }
 }
 
