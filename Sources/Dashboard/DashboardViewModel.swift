@@ -51,6 +51,7 @@ class DashboardViewModel: ObservableObject {
 
     authorizationStatus
       .map { $0 == .authorizedAlways }
+      .receive(on: DispatchQueue.main)
       .assign(to: &$canStartActivity)
 
     authorizationStatus
@@ -62,6 +63,7 @@ class DashboardViewModel: ObservableObject {
           return "This application works only with full location access"
         }
       }
+      .receive(on: DispatchQueue.main)
       .assign(to: &$warningText)
   }
 
@@ -105,12 +107,14 @@ class DashboardViewModel: ObservableObject {
       .scan([Photo]()) { photos, photo in
         [photo] + photos
       }
+      .receive(on: DispatchQueue.main)
       .assign(to: &$photos)
 
     recordedLocations
       .map(\.distance)
       .map(Int.init)
       .map { "\($0)m" }
+      .receive(on: DispatchQueue.main)
       .assign(to: &$title)
   }
 

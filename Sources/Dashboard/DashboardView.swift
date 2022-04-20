@@ -72,8 +72,8 @@ struct DashboardView_Previews: PreviewProvider {
         title: "450m",
         warningText: "Placeholder warning",
         photos: [
-          .init(
-            id: UUID().uuidString,
+            .init(
+              id: UUID().uuidString,
             url: .init(string: "https://cdn.wallpapersafari.com/69/4/j0JeYp.jpg")!
           ),
           .init(

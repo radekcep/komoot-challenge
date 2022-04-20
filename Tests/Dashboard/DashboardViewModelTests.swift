@@ -11,12 +11,21 @@ import XCTest
 @testable import KomootChallenge
 
 final class DashboardViewModelTests: XCTestCase {
+
+  private var cancellables: Set<AnyCancellable> = []
+
+  override func setUp() {
+    cancellables = []
+    super.setUp()
+  }
+
   func test_sut_should_ask_for_image_every_100_meters() {
     let updatingLocationExpectation = expectation(description: "SUT should start updating location.")
     let photoURLsExpectation = expectation(description: "SUT should request photos 2 times.")
     photoURLsExpectation.expectedFulfillmentCount = 2
     let routeDistanceExpectation = expectation(description: "SUT should ask for distance 3 times.")
     routeDistanceExpectation.expectedFulfillmentCount = 3
+    let photosExpectation = expectation(description: "SUT should display received photos.")
 
     let locationsSubject = PassthroughSubject<Location, Never>()
 
@@ -55,11 +64,20 @@ final class DashboardViewModelTests: XCTestCase {
     sut.listenToLocationChanges()
     sut.startActivity()
 
+    sut.$photos
+      .collect(3)
+      .sink { collectedPhotos in
+        XCTAssertEqual(collectedPhotos[0].count, 0)
+        XCTAssertEqual(collectedPhotos[1].count, 1)
+        XCTAssertEqual(collectedPhotos[2].count, 2)
+        photosExpectation.fulfill()
+      }
+      .store(in: &cancellables)
+
     locationsSubject.send(.init(latitude: 0, longitude: 0))
     locationsSubject.send(.init(latitude: 0, longitude: 0))
     locationsSubject.send(.init(latitude: 0, longitude: 0))
 
-    XCTAssertEqual(sut.photos.count, 2)
     waitForExpectations(timeout: 0.1)
   }
 
@@ -67,6 +85,7 @@ final class DashboardViewModelTests: XCTestCase {
     let updatingLocationExpectation = expectation(description: "SUT should start updating location.")
     let routeDistanceExpectation = expectation(description: "SUT should ask for distance 3 times.")
     routeDistanceExpectation.expectedFulfillmentCount = 3
+    let titlesExpectation = expectation(description: "SUT should update title with distance.")
 
     let locationsSubject = PassthroughSubject<Location, Never>()
 
@@ -97,14 +116,20 @@ final class DashboardViewModelTests: XCTestCase {
     sut.listenToLocationChanges()
     sut.startActivity()
 
-    locationsSubject.send(.init(latitude: 0, longitude: 0))
-    XCTAssertEqual(sut.title, "50m")
+    sut.$title
+      .collect(4)
+      .sink { collectedTitles in
+        XCTAssertEqual(collectedTitles[0], nil)
+        XCTAssertEqual(collectedTitles[1], "50m")
+        XCTAssertEqual(collectedTitles[2], "100m")
+        XCTAssertEqual(collectedTitles[3], "250m")
+        titlesExpectation.fulfill()
+      }
+      .store(in: &cancellables)
 
     locationsSubject.send(.init(latitude: 0, longitude: 0))
-    XCTAssertEqual(sut.title, "100m")
-
     locationsSubject.send(.init(latitude: 0, longitude: 0))
-    XCTAssertEqual(sut.title, "250m")
+    locationsSubject.send(.init(latitude: 0, longitude: 0))
 
     waitForExpectations(timeout: 0.1)
   }
@@ -185,6 +210,8 @@ extension DashboardViewModelTests {
 
 extension DashboardViewModelTests {
   func test_sut_should_show_warning_when_location_access_is_unknown() {
+    let warningExpectation = expectation(description: "SUT should update warning and canStartActivity properties.")
+
     let authorizationStatusSubject = PassthroughSubject<LocationClient.AuthorizationStatus, Never>()
 
     let locationClient = LocationClient(
@@ -200,15 +227,31 @@ extension DashboardViewModelTests {
       photosClient: .stub,
       routingClient: .stub
     )
+
+    Publishers.Zip(
+      sut.$canStartActivity,
+      sut.$warningText
+    )
+      .map { (canStartActivity: $0, warningText: $1) }
+      .collect(2)
+      .sink { collectedProperties in
+        XCTAssertFalse(collectedProperties[0].canStartActivity)
+        XCTAssertNil(collectedProperties[0].warningText)
+        XCTAssertFalse(collectedProperties[1].canStartActivity)
+        XCTAssertNotNil(collectedProperties[1].warningText)
+        warningExpectation.fulfill()
+      }
+      .store(in: &cancellables)
 
     sut.requestPermissions()
     authorizationStatusSubject.send(.unknown)
 
-    XCTAssertFalse(sut.canStartActivity)
-    XCTAssertNotNil(sut.warningText)
+    waitForExpectations(timeout: 0.1)
   }
 
   func test_sut_should_show_warning_when_location_access_is_restricted() {
+    let warningExpectation = expectation(description: "SUT should update warning and canStartActivity properties.")
+
     let authorizationStatusSubject = PassthroughSubject<LocationClient.AuthorizationStatus, Never>()
 
     let locationClient = LocationClient(
@@ -224,15 +267,31 @@ extension DashboardViewModelTests {
       photosClient: .stub,
       routingClient: .stub
     )
+
+    Publishers.Zip(
+      sut.$canStartActivity,
+      sut.$warningText
+    )
+      .map { (canStartActivity: $0, warningText: $1) }
+      .collect(2)
+      .sink { collectedProperties in
+        XCTAssertFalse(collectedProperties[0].canStartActivity)
+        XCTAssertNil(collectedProperties[0].warningText)
+        XCTAssertFalse(collectedProperties[1].canStartActivity)
+        XCTAssertNotNil(collectedProperties[1].warningText)
+        warningExpectation.fulfill()
+      }
+      .store(in: &cancellables)
 
     sut.requestPermissions()
     authorizationStatusSubject.send(.restricted)
 
-    XCTAssertFalse(sut.canStartActivity)
-    XCTAssertNotNil(sut.warningText)
+    waitForExpectations(timeout: 0.1)
   }
 
   func test_sut_should_show_warning_when_location_access_is_denied() {
+    let warningExpectation = expectation(description: "SUT should update warning and canStartActivity properties.")
+
     let authorizationStatusSubject = PassthroughSubject<LocationClient.AuthorizationStatus, Never>()
 
     let locationClient = LocationClient(
@@ -249,14 +308,30 @@ extension DashboardViewModelTests {
       routingClient: .stub
     )
 
+    Publishers.Zip(
+      sut.$canStartActivity,
+      sut.$warningText
+    )
+      .map { (canStartActivity: $0, warningText: $1) }
+      .collect(2)
+      .sink { collectedProperties in
+        XCTAssertFalse(collectedProperties[0].canStartActivity)
+        XCTAssertNil(collectedProperties[0].warningText)
+        XCTAssertFalse(collectedProperties[1].canStartActivity)
+        XCTAssertNotNil(collectedProperties[1].warningText)
+        warningExpectation.fulfill()
+      }
+      .store(in: &cancellables)
+
     sut.requestPermissions()
     authorizationStatusSubject.send(.denied)
 
-    XCTAssertFalse(sut.canStartActivity)
-    XCTAssertNotNil(sut.warningText)
+    waitForExpectations(timeout: 0.1)
   }
 
   func test_sut_should_show_warning_when_location_access_is_notDetermined() {
+    let warningExpectation = expectation(description: "SUT should update warning and canStartActivity properties.")
+
     let authorizationStatusSubject = PassthroughSubject<LocationClient.AuthorizationStatus, Never>()
 
     let locationClient = LocationClient(
@@ -272,15 +347,31 @@ extension DashboardViewModelTests {
       photosClient: .stub,
       routingClient: .stub
     )
+
+    Publishers.Zip(
+      sut.$canStartActivity,
+      sut.$warningText
+    )
+      .map { (canStartActivity: $0, warningText: $1) }
+      .collect(2)
+      .sink { collectedProperties in
+        XCTAssertFalse(collectedProperties[0].canStartActivity)
+        XCTAssertNil(collectedProperties[0].warningText)
+        XCTAssertFalse(collectedProperties[1].canStartActivity)
+        XCTAssertNotNil(collectedProperties[1].warningText)
+        warningExpectation.fulfill()
+      }
+      .store(in: &cancellables)
 
     sut.requestPermissions()
     authorizationStatusSubject.send(.notDetermined)
 
-    XCTAssertFalse(sut.canStartActivity)
-    XCTAssertNotNil(sut.warningText)
+    waitForExpectations(timeout: 0.1)
   }
 
   func test_sut_should_show_warning_when_location_access_is_authorizedWhenInUse() {
+    let warningExpectation = expectation(description: "SUT should update warning and canStartActivity properties.")
+
     let authorizationStatusSubject = PassthroughSubject<LocationClient.AuthorizationStatus, Never>()
 
     let locationClient = LocationClient(
@@ -296,15 +387,31 @@ extension DashboardViewModelTests {
       photosClient: .stub,
       routingClient: .stub
     )
+
+    Publishers.Zip(
+      sut.$canStartActivity,
+      sut.$warningText
+    )
+      .map { (canStartActivity: $0, warningText: $1) }
+      .collect(2)
+      .sink { collectedProperties in
+        XCTAssertFalse(collectedProperties[0].canStartActivity)
+        XCTAssertNil(collectedProperties[0].warningText)
+        XCTAssertFalse(collectedProperties[1].canStartActivity)
+        XCTAssertNotNil(collectedProperties[1].warningText)
+        warningExpectation.fulfill()
+      }
+      .store(in: &cancellables)
 
     sut.requestPermissions()
     authorizationStatusSubject.send(.authorizedWhenInUse)
 
-    XCTAssertFalse(sut.canStartActivity)
-    XCTAssertNotNil(sut.warningText)
+    waitForExpectations(timeout: 0.1)
   }
 
   func test_sut_should_not_show_warning_when_location_access_is_authorizedAlways() {
+    let warningExpectation = expectation(description: "SUT should update warning and canStartActivity properties.")
+
     let authorizationStatusSubject = PassthroughSubject<LocationClient.AuthorizationStatus, Never>()
 
     let locationClient = LocationClient(
@@ -321,10 +428,24 @@ extension DashboardViewModelTests {
       routingClient: .stub
     )
 
+    Publishers.Zip(
+      sut.$canStartActivity,
+      sut.$warningText
+    )
+      .map { (canStartActivity: $0, warningText: $1) }
+      .collect(2)
+      .sink { collectedProperties in
+        XCTAssertFalse(collectedProperties[0].canStartActivity)
+        XCTAssertNil(collectedProperties[0].warningText)
+        XCTAssertTrue(collectedProperties[1].canStartActivity)
+        XCTAssertNil(collectedProperties[1].warningText)
+        warningExpectation.fulfill()
+      }
+      .store(in: &cancellables)
+
     sut.requestPermissions()
     authorizationStatusSubject.send(.authorizedAlways)
 
-    XCTAssertTrue(sut.canStartActivity)
-    XCTAssertNil(sut.warningText)
+    waitForExpectations(timeout: 0.1)
   }
 }
