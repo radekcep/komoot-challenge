@@ -21,6 +21,8 @@ struct DashboardView: View {
             image
               .resizable()
               .scaledToFill()
+              .frame(height: 240)
+              .clipped()
           } placeholder: {
             GeometryReader { geometry in
               ProgressView()
