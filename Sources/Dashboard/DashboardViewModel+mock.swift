@@ -15,7 +15,8 @@ extension DashboardViewModel {
     isActivityInProgress: Bool
   ) -> DashboardViewModel {
     let viewModel = DashboardViewModel(
-      locationClient: .stub
+      locationClient: .stub,
+      photosClient: .stub
     )
     viewModel.title = title
     viewModel.photos = photos

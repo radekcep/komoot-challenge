@@ -72,7 +72,7 @@ private extension LocationClient.AuthorizationStatus {
   }
 }
 
-private extension LocationClient.Location {
+private extension Location {
   init(from clLocation: CLLocation) {
     self.latitude = clLocation.coordinate.latitude
     self.longitude = clLocation.coordinate.longitude

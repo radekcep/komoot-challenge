@@ -10,7 +10,8 @@ import Foundation
 extension DashboardViewModel {
   static var live: DashboardViewModel {
     .init(
-      locationClient: .live
+      locationClient: .live,
+      photosClient: .live
     )
   }
 }

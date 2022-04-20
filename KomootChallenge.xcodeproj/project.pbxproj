@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		BF6E30F8280EFDCB003617F0 /* LocationClient+stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6E30F7280EFDCB003617F0 /* LocationClient+stub.swift */; };
+		BF6E30FB280F1BE7003617F0 /* PhotosClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6E30FA280F1BE7003617F0 /* PhotosClient.swift */; };
+		BF6E30FD280F1C5B003617F0 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6E30FC280F1C5B003617F0 /* Location.swift */; };
+		BF6E30FF280F1DE6003617F0 /* PhotosClient+live.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6E30FE280F1DE6003617F0 /* PhotosClient+live.swift */; };
+		BF6E3101280F25D8003617F0 /* PhotosClient+stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6E3100280F25D8003617F0 /* PhotosClient+stub.swift */; };
 		BF771F81280EEB1200D4916E /* LocationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF771F80280EEB1200D4916E /* LocationClient.swift */; };
 		BF771F83280EEBE200D4916E /* LocationClient+live.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF771F82280EEBE200D4916E /* LocationClient+live.swift */; };
 		BFADCBBC280EA0F300A1409B /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFADCBBB280EA0F300A1409B /* DashboardViewModel.swift */; };
@@ -32,6 +36,10 @@
 
 /* Begin PBXFileReference section */
 		BF6E30F7280EFDCB003617F0 /* LocationClient+stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationClient+stub.swift"; sourceTree = "<group>"; };
+		BF6E30FA280F1BE7003617F0 /* PhotosClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosClient.swift; sourceTree = "<group>"; };
+		BF6E30FC280F1C5B003617F0 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		BF6E30FE280F1DE6003617F0 /* PhotosClient+live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotosClient+live.swift"; sourceTree = "<group>"; };
+		BF6E3100280F25D8003617F0 /* PhotosClient+stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotosClient+stub.swift"; sourceTree = "<group>"; };
 		BF771F80280EEB1200D4916E /* LocationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationClient.swift; sourceTree = "<group>"; };
 		BF771F82280EEBE200D4916E /* LocationClient+live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationClient+live.swift"; sourceTree = "<group>"; };
 		BF771F87280EF99700D4916E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -65,9 +73,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BF6E30F9280F1BD6003617F0 /* PhotosClient */ = {
+			isa = PBXGroup;
+			children = (
+				BF6E30FA280F1BE7003617F0 /* PhotosClient.swift */,
+				BF6E30FE280F1DE6003617F0 /* PhotosClient+live.swift */,
+				BF6E3100280F25D8003617F0 /* PhotosClient+stub.swift */,
+			);
+			path = PhotosClient;
+			sourceTree = "<group>";
+		};
 		BF771F7E280EEAD200D4916E /* Clients */ = {
 			isa = PBXGroup;
 			children = (
+				BF6E30F9280F1BD6003617F0 /* PhotosClient */,
 				BF771F7F280EEADA00D4916E /* LocationClient */,
 			);
 			path = Clients;
@@ -117,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				BFADCBC5280EA93800A1409B /* Photo.swift */,
+				BF6E30FC280F1C5B003617F0 /* Location.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -279,11 +299,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFADCBC6280EA93800A1409B /* Photo.swift in Sources */,
+				BF6E30FD280F1C5B003617F0 /* Location.swift in Sources */,
 				BFADCBC0280EA21D00A1409B /* DashboardViewModel+mock.swift in Sources */,
 				BF771F81280EEB1200D4916E /* LocationClient.swift in Sources */,
 				BFADCBBC280EA0F300A1409B /* DashboardViewModel.swift in Sources */,
+				BF6E30FF280F1DE6003617F0 /* PhotosClient+live.swift in Sources */,
 				BFDEE30B280E9B0C00E070E5 /* DashboardView.swift in Sources */,
+				BF6E30FB280F1BE7003617F0 /* PhotosClient.swift in Sources */,
 				BFDEE309280E9B0C00E070E5 /* KomootChallengeApp.swift in Sources */,
+				BF6E3101280F25D8003617F0 /* PhotosClient+stub.swift in Sources */,
 				BFADCBBE280EA1D100A1409B /* DashboardViewModel+live.swift in Sources */,
 				BF6E30F8280EFDCB003617F0 /* LocationClient+stub.swift in Sources */,
 				BF771F83280EEBE200D4916E /* LocationClient+live.swift in Sources */,

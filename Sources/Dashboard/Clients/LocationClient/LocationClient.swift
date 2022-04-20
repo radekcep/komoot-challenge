@@ -20,9 +20,4 @@ extension LocationClient {
   enum AuthorizationStatus {
     case unknown, notDetermined, restricted, denied, authorizedAlways, authorizedWhenInUse
   }
-
-  struct Location {
-    let latitude: Double
-    let longitude: Double
-  }
 }
