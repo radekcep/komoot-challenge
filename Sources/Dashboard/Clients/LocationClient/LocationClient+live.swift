@@ -14,6 +14,9 @@ extension LocationClient {
     let locationManagerDelegate = LocationManagerDelegate()
 
     let locationManager = CLLocationManager()
+    locationManager.allowsBackgroundLocationUpdates = true
+    locationManager.pausesLocationUpdatesAutomatically = false
+    locationManager.showsBackgroundLocationIndicator = true
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
     locationManager.delegate = locationManagerDelegate
 
