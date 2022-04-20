@@ -33,13 +33,6 @@ extension PhotosClient {
 
       return URLSession.shared
         .dataTaskPublisher(for: url)
-        .handleEvents(
-          receiveSubscription: { print("received receiveSubscription: \($0)") },
-          receiveOutput: { print("received output: \($0)") },
-          receiveCompletion: { print("received completion: \($0)") },
-          receiveCancel: { print("received cancel") },
-          receiveRequest: { print("received request: \($0)") }
-        )
         .mapError(PhotosClient.Error.urlError)
         .map(\.data)
         .decode(type: FlickrPhotos.self, decoder: JSONDecoder())
@@ -49,13 +42,6 @@ extension PhotosClient {
             .map { "https://farm\($0.farm).staticflickr.com/\($0.server)/\($0.id)_\($0.secret).jpg" }
             .compactMap(URL.init)
         }
-        .handleEvents(
-          receiveSubscription: { print("received receiveSubscription: \($0)") },
-          receiveOutput: { print("received output: \($0)") },
-          receiveCompletion: { print("received completion: \($0)") },
-          receiveCancel: { print("received cancel") },
-          receiveRequest: { print("received request: \($0)") }
-        )
         .eraseToAnyPublisher()
     }
   }
@@ -74,6 +60,6 @@ extension PhotosClient {
     let id: String
     let secret: String
     let server: String
-    let farm: String
+    let farm: Int
   }
 }

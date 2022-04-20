@@ -54,7 +54,7 @@ class DashboardViewModel: ObservableObject {
       .assign(to: &$canStartActivity)
 
     authorizationStatus
-      .compactMap { authorizationStatus in
+      .map { authorizationStatus in
         switch authorizationStatus {
         case .authorizedAlways:
           return nil

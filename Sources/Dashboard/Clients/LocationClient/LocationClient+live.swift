@@ -11,28 +11,23 @@ import Foundation
 
 extension LocationClient {
   static var live: Self {
-    let authorizationStatusSubject = PassthroughSubject<AuthorizationStatus, Never>()
-    let locationsSubject = PassthroughSubject<Location, Never>()
-
     let locationManagerDelegate = LocationManagerDelegate()
-    locationManagerDelegate.didChangeAuthorization = { locationManager in
-      authorizationStatusSubject.send(AuthorizationStatus(from: locationManager.authorizationStatus))
-    }
-    locationManagerDelegate.didUpdateLocations = { _, locations in
-      locations.first.map { locationsSubject.send(Location(from: $0)) }
-    }
 
     let locationManager = CLLocationManager()
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
     locationManager.delegate = locationManagerDelegate
 
-    locationManager.requestAlwaysAuthorization()
-
     return .init(
-      authorizationStatus: Deferred { Just(AuthorizationStatus(from: locationManager.authorizationStatus)) }
-        .merge(with: authorizationStatusSubject)
+      authorizationStatus: Deferred {
+        Just(locationManager.authorizationStatus)
+          .merge(with: locationManagerDelegate.didChangeAuthorizationSubject
+            .map(\.authorizationStatus))
+      }
+        .map(AuthorizationStatus.init)
         .eraseToAnyPublisher(),
-      locations: locationsSubject.eraseToAnyPublisher(),
+      locations: locationManagerDelegate.didUpdateLocationsSubject
+        .compactMap { $1.first.map(Location.init) }
+        .eraseToAnyPublisher(),
       requestAuthorization: locationManager.requestAlwaysAuthorization,
       startUpdatingLocation: locationManager.startUpdatingLocation,
       stopUpdatingLocation: locationManager.stopUpdatingLocation
@@ -42,15 +37,15 @@ extension LocationClient {
 
 private extension LocationClient {
   class LocationManagerDelegate: NSObject, CLLocationManagerDelegate {
-    var didChangeAuthorization: ((CLLocationManager) -> Void)?
-    var didUpdateLocations: ((CLLocationManager, [CLLocation]) -> Void)?
+    var didChangeAuthorizationSubject = PassthroughSubject<CLLocationManager, Never>()
+    var didUpdateLocationsSubject = PassthroughSubject<(CLLocationManager, [CLLocation]), Never>()
 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-      didChangeAuthorization?(manager)
+      didChangeAuthorizationSubject.send(manager)
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-      didUpdateLocations?(manager, locations)
+      didUpdateLocationsSubject.send((manager, locations))
     }
   }
 }
